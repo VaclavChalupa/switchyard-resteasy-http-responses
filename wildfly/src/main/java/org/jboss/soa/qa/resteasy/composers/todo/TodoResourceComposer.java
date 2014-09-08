@@ -4,8 +4,6 @@ import org.jboss.soa.qa.resteasy.composers.ComposerUtils;
 import org.jboss.soa.qa.resteasy.metadata.Register;
 import org.jboss.soa.qa.resteasy.model.ListResource;
 import org.jboss.soa.qa.resteasy.model.Todo;
-import org.jboss.soa.qa.resteasy.params.LimitParam;
-import org.jboss.soa.qa.resteasy.params.OffsetParam;
 
 import org.switchyard.Exchange;
 import org.switchyard.ExchangeState;
@@ -49,16 +47,8 @@ public class TodoResourceComposer extends RESTEasyMessageComposer {
 	public void composeGetAll(RESTEasyBindingData source, Message message) {
 		if (source.getParameters().length == 3) {
 			message.getContext().setProperty(Register.TodoResource.GetAll.COMPLETED, source.getParameters()[0]);
-
-			final LimitParam lp = (LimitParam) source.getParameters()[1];
-			if (lp != null) {
-				message.getContext().setProperty(Register.PaginatedResource.LIMIT, lp.getLimit());
-			}
-
-			final OffsetParam op = (OffsetParam) source.getParameters()[2];
-			if (op != null) {
-				message.getContext().setProperty(Register.PaginatedResource.OFFSET, op.getOffset());
-			}
+			message.getContext().setProperty(Register.PaginatedResource.LIMIT, source.getParameters()[1]);
+			message.getContext().setProperty(Register.PaginatedResource.OFFSET, source.getParameters()[2]);
 		}
 	}
 

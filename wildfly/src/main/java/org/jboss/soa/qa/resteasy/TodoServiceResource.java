@@ -1,12 +1,14 @@
 package org.jboss.soa.qa.resteasy;
 
 import org.jboss.soa.qa.resteasy.model.Todo;
-import org.jboss.soa.qa.resteasy.params.LimitParam;
-import org.jboss.soa.qa.resteasy.params.OffsetParam;
+import org.jboss.soa.qa.resteasy.validation.ParamName;
 import org.jboss.soa.qa.resteasy.validation.group.Create;
 import org.jboss.soa.qa.resteasy.validation.group.Update;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.groups.ConvertGroup;
 import javax.validation.groups.Default;
@@ -29,8 +31,8 @@ public interface TodoServiceResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	Response getAll(
 			@QueryParam("completed") Boolean completed,
-			@QueryParam("limit") LimitParam limit,
-			@QueryParam("offset") OffsetParam offset
+			@QueryParam("limit") @Range(min = 0L, max = 10L) @ParamName("limit") Integer limit,
+			@QueryParam("offset") @Min(0L) @ParamName("offset") Integer offset
 	);
 
 	@GET

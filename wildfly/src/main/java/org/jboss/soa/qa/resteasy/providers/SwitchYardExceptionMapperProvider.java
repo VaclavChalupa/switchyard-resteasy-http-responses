@@ -3,7 +3,6 @@ package org.jboss.soa.qa.resteasy.providers;
 import org.jboss.soa.qa.resteasy.exceptions.EntityNotFoundException;
 import org.jboss.soa.qa.resteasy.exceptions.InconsistentRequestException;
 
-import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.Response;
 
@@ -15,7 +14,6 @@ public final class SwitchYardExceptionMapperProvider {
 	private static final Map<Class<? extends Exception>, SwitchyardExceptionMapper> mappers = new HashMap<>(4);
 
 	static {
-		mappers.put(ConstraintViolationException.class, new ConstraintViolationExceptionMapper());
 		mappers.put(InconsistentRequestException.class, new InconsistentRequestExceptionMapper());
 		mappers.put(EntityNotFoundException.class, new EntityNotFoundExceptionMapper());
 	}
